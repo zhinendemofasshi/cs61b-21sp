@@ -173,6 +173,56 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if (emptySpaceExists(b)) {
+            return true;
+        }
+        if (atLeastOneMoveExistsInRow(b) || atLeastOneMoveExistsInCol(b)) {
+            return true;
+        }
+        return false;
+    }
+
+    /** Return true if there are valid moves in column */
+    private static boolean atLeastOneMoveExistsInCol(Board b) {
+        for (int col = 0; col < b.size(); col++) {
+            for (int row = 0; row < b.size(); row++) {
+                Tile t = b.tile(col, row);
+                if (row - 1 >= 0) {
+                    Tile t1 = b.tile(col, row - 1);
+                    if (t.value() == t1.value()) {
+                        return true;
+                    }
+                }
+                if (row + 1 < b.size()) {
+                    Tile t2 = b.tile(col, row + 1);
+                    if (t.value() == t2.value()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /** Return true if there are valid moves in row */
+    private static boolean atLeastOneMoveExistsInRow(Board b) {
+        for (int row = 0; row < b.size(); row++) {
+            for (int col = 0; col < b.size(); col++) {
+                Tile t = b.tile(col, row);
+                if (col - 1 >= 0) {
+                    Tile t1 = b.tile(col - 1, row);
+                    if (t.value() == t1.value()) {
+                        return true;
+                    }
+                }
+                if (col + 1 < b.size()) {
+                    Tile t2 = b.tile(col + 1, row);
+                    if (t.value() == t2.value()) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
