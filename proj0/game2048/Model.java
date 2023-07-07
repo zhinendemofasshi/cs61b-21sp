@@ -94,7 +94,7 @@ public class Model extends Observable {
         setChanged();
     }
 
-    /** Tilt the board toward SIDE. Return true iff this changes the board.
+    /** Tilt the board toward SIDE. Return true if this changes the board.
      *
      * 1. If two Tile objects are adjacent in the direction of motion and have
      *    the same value, they are merged into one Tile of twice the original
@@ -109,11 +109,31 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
-
+        board.setViewingPerspective(side);
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        for (int col = 0; col < board.size(); col++) {
+            int topOfCol = board.size() - 1;
+            for (int row = board.size() - 1; row >= 0; row--) {
+                Tile t = board.tile(col, row);
+                if (t == null) {
+                    continue;
+                }
+                // topOfCol is the number of tile which is the top of blanks in the board
+                int rowDestination = findRowDestination(col, row, topOfCol);
+                topOfCol = rowDestination;
+                if (rowDestination != row) {
+                    boolean mergeFlag = board.move(col, rowDestination, t);
+                    if (mergeFlag) {
+                        score += 2 * t.value();
+                        topOfCol -= 1;
+                    }
+                    changed = true;
+                }
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
@@ -121,6 +141,17 @@ public class Model extends Observable {
         return changed;
     }
 
+    private int findRowDestination(int givenCol, int givenRow, int top) {
+        for (int row = board.size() - 1; row > givenRow ; row--) {
+            if (board.tile(givenCol, row) == null) {
+                return row;
+            }
+            else if (board.tile(givenCol, top) != null && board.tile(givenCol, top).value() == board.tile(givenCol, givenRow).value()){
+                return top;
+            }
+        }
+        return givenRow;
+    }
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
      */
