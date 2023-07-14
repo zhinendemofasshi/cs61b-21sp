@@ -49,7 +49,7 @@ public class TestBuggyAList {
               }
               int l1 = L.removeLast();
               int l2 = buggyAList.removeLast();
-//              System.out.println("removeLast: " + l1);
+              // System.out.println("removeLast: " + l1);
 //              System.out.println("removeLast: " + l2);
               assertEquals(l1, l2);
           }
