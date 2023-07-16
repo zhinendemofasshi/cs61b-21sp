@@ -99,7 +99,13 @@ public class ArrayDequeTest {
     @Test
     public void testRemoveFromEmpty() {
         ArrayDeque<String> adq1 = new ArrayDeque<>();
+        adq1.addFirst("a");
+        assertEquals(1, adq1.size());
+        assertFalse(adq1.isEmpty());
+        adq1.removeFirst();
+        adq1.removeFirst();
         adq1.removeFirst();
         assertEquals(0, adq1.size());
+        assertTrue(adq1.isEmpty());
     }
 }

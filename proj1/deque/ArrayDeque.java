@@ -44,6 +44,7 @@ public class ArrayDeque<T> {
         T temp = items[(nextFirst + 1) % items.length];
         items[(nextFirst + 1) % items.length] = null;
         nextFirst += 1;
+        size -= 1;
         return temp;
     }
 
@@ -54,6 +55,7 @@ public class ArrayDeque<T> {
         T temp = items[(nextLast - 1 + items.length) % items.length];
         items[(nextLast - 1 + items.length) % items.length] = null;
         nextLast -= 1;
+        size -= 1;
         return temp;
     }
 
