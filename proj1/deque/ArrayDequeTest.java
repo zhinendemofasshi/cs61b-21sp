@@ -29,6 +29,15 @@ public class ArrayDequeTest {
         L.addLast("world");
         L.addLast("world");
         assertEquals(8, L.size());
+        L.removeFirst();
+        L.removeFirst();
+        L.removeFirst();
+        L.removeFirst();
+        L.removeFirst();
+        L.removeFirst();
+        L.removeFirst();
+        L.removeFirst();
+        assertEquals(0, L.size());
     }
 
     @Test
@@ -107,5 +116,18 @@ public class ArrayDequeTest {
         adq1.removeFirst();
         assertEquals(0, adq1.size());
         assertTrue(adq1.isEmpty());
+    }
+
+    @Test
+    public void testPrintDeque() {
+        ArrayDeque<String> adq1 = new ArrayDeque<>();
+        adq1.addLast("a");
+        adq1.addLast("b");
+        adq1.addLast("d");
+        adq1.addLast("e");
+        adq1.addFirst("c");
+        adq1.addFirst("f");
+        // It should look like "f c a b d e"
+        adq1.printDeque();
     }
 }

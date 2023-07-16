@@ -41,9 +41,10 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        T temp = items[(nextFirst + 1) % items.length];
-        items[(nextFirst + 1) % items.length] = null;
-        nextFirst += 1;
+        int first = (nextFirst + 1) % items.length;
+        T temp = items[first];
+        items[first] = null;
+        nextFirst = first;
         size -= 1;
         return temp;
     }
@@ -52,19 +53,20 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        T temp = items[(nextLast - 1 + items.length) % items.length];
-        items[(nextLast - 1 + items.length) % items.length] = null;
-        nextLast -= 1;
+        int last = (nextLast - 1 + items.length) % items.length;
+        T temp = items[last];
+        items[last] = null;
+        nextLast = last;
         size -= 1;
         return temp;
     }
 
     public void printDeque() {
-        for (T item :
-                items) {
-            if (item != null) {
-                System.out.print(item + " ");
-            }
+        int p = (nextFirst + 1) % items.length;
+        for (int i = 0; i < size; i++) {
+            System.out.print(items[p] + " ");
+            p += 1;
+            p = p % items.length;
         }
         System.out.println();
     }
