@@ -38,6 +38,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         T temp = items[(nextFirst + 1) % items.length];
         items[(nextFirst + 1) % items.length] = null;
         nextFirst += 1;
@@ -45,6 +48,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         T temp = items[(nextLast - 1 + items.length) % items.length];
         items[(nextLast - 1 + items.length) % items.length] = null;
         nextLast -= 1;
@@ -61,7 +67,16 @@ public class ArrayDeque<T> {
         System.out.println();
     }
     public T get(int index) {
-        return items[index];
+        if (index > size - 1) {
+            return null;
+        }
+        // p points to the first item in this array.
+        int p = (nextFirst + 1) % items.length;
+        for (int i = 0; i < index; i++) {
+            p += 1;
+            p = p % items.length;
+        }
+        return items[p];
     }
 
     public int size() {

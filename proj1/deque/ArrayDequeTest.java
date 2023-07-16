@@ -53,10 +53,18 @@ public class ArrayDequeTest {
     @Test
     public void testAddAndGet() {
         ArrayDeque<String> L = new ArrayDeque<>();
-        L.addFirst("hello");
-        L.addLast("world");
-        assertEquals("hello", L.get(4));
-        assertEquals("world", L.get(5));
+        L.addFirst("f");
+        L.addLast("c");
+        L.addLast("a");
+        L.addLast("b");
+        L.addLast("d");
+        L.addLast("e");
+        assertEquals("f", L.get(0));
+        assertEquals("c", L.get(1));
+        assertEquals("a", L.get(2));
+        assertEquals("b", L.get(3));
+        assertEquals("d", L.get(4));
+        assertEquals("e", L.get(5));
     }
 
     @Test
@@ -86,5 +94,12 @@ public class ArrayDequeTest {
         String s = dq1.removeFirst();
         double d = dq2.removeFirst();
         boolean b = dq3.removeFirst();
+    }
+
+    @Test
+    public void testRemoveFromEmpty() {
+        ArrayDeque<String> adq1 = new ArrayDeque<>();
+        adq1.removeFirst();
+        assertEquals(0, adq1.size());
     }
 }
