@@ -1,8 +1,10 @@
 package deque;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
+
 import java.util.Objects;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private int size;
     private IntNode sentinel;
     private class IntNode{
@@ -22,17 +24,20 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
     }
 
+    @Override
     public void addFirst(T item) {
         sentinel.next = new IntNode(item, sentinel, sentinel.next);
         size += 1;
         sentinel.next.next.prev = sentinel.next;
     }
 
+    @Override
     public void addLast(T item) {
         sentinel.prev = new IntNode(item, sentinel.prev, sentinel);
         size += 1;
         sentinel.prev.prev.next = sentinel.prev;
     }
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -43,6 +48,7 @@ public class LinkedListDeque<T> {
         sentinel.next.prev = sentinel;
         return temp;
     }
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -53,6 +59,8 @@ public class LinkedListDeque<T> {
         sentinel.prev.next = sentinel;
         return temp;
     }
+
+    @Override
     public T get(int index) {
         for (int i = 0; i < size; i++) {
             IntNode p = sentinel;
@@ -75,6 +83,8 @@ public class LinkedListDeque<T> {
         }
         return getRecursiveHelper(index - 1, p.next);
     }
+
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             IntNode p = sentinel;
@@ -97,12 +107,9 @@ public class LinkedListDeque<T> {
         return Objects.hash(size, sentinel);
     }
 
+
+    @Override
     public int size() {
         return size;
     }
-
-    public boolean isEmpty() {
-        return this.size() == 0;
-    }
-
 }
