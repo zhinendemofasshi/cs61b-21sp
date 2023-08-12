@@ -15,7 +15,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class LinkedListIterator implements Iterator<T> {
         private int wizPos;
 
-        public LinkedListIterator() {
+        LinkedListIterator() {
             wizPos = 0;
         }
 
@@ -36,7 +36,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         private IntNode prev;
         private IntNode next;
         private T item;
-        public IntNode(T item, IntNode prev, IntNode next) {
+        IntNode(T item, IntNode prev, IntNode next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
@@ -141,8 +141,12 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         LinkedListDeque<?> lld = (LinkedListDeque<?>) o;
         if (lld.size() != size) {
             return false;
@@ -154,12 +158,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
         return true;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(size, sentinel);
-    }
-
 
     @Override
     public int size() {

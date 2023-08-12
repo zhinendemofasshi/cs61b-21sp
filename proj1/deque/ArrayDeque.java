@@ -89,10 +89,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return this.size;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     public Iterator<T> iterator() {
         // ToDo lecture 11
         return new ArrayIterator();
@@ -101,7 +97,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private class ArrayIterator implements Iterator<T> {
         private int wizPos;
 
-        public ArrayIterator() {
+        ArrayIterator() {
             wizPos = 0;
         }
 
@@ -139,8 +135,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ArrayDeque<?> lld = (ArrayDeque<?>) o;
         if (lld.size() != size) {
             return false;
@@ -151,12 +151,5 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             }
         }
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(size);
-        result = 31 * result + Arrays.hashCode(items);
-        return result;
     }
 }
