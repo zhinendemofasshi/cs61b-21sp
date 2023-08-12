@@ -130,4 +130,40 @@ public class ArrayDequeTest {
         // It should look like "f c a b d e"
         adq1.printDeque();
     }
+
+    @Test
+    public void iterableTest() {
+        ArrayDeque<Integer> lld = new ArrayDeque<>();
+        lld.addLast(1);
+        lld.addLast(2);
+        lld.addLast(3);
+        assertEquals((Integer) 1, lld.get(0));
+        assertEquals((Integer) 2, lld.get(1));
+        assertEquals((Integer) 3, lld.get(2));
+        for (int x : lld) {
+            System.out.println(x);
+        }
+    }
+
+    @Test
+    public void equalsTest() {
+        // different size
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        ArrayDeque<Integer> lld2 = new ArrayDeque<>();
+        lld2.addFirst(1);
+        assertFalse(lld1.equals(lld2));
+        // same arrays
+        lld2.addFirst(2);
+        assertTrue(lld1.equals(lld2));
+        assertTrue(lld1.equals(lld1));
+        // same size but different contents
+        lld1.addFirst(3);
+        lld2.addFirst(5);
+        assertFalse(lld1.equals(lld2));
+        // different class
+        LinkedListDeque<Integer> arrayDeque = new LinkedListDeque<>();
+        assertFalse(lld1.equals(arrayDeque));
+    }
 }

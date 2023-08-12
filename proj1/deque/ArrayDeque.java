@@ -95,7 +95,27 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public Iterator<T> iterator() {
         // ToDo lecture 11
-        return null;
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<T> {
+        private int wizPos;
+
+        public ArrayIterator() {
+            wizPos = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
     }
 
     @Override
