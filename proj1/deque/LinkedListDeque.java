@@ -1,16 +1,41 @@
 package deque;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
-
+import java.util.Iterator;
 import java.util.Objects;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private IntNode sentinel;
-    private class IntNode{
-        public IntNode prev;
-        public IntNode next;
-        public T item;
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+        private int wizPos;
+
+        public LinkedListIterator() {
+            wizPos = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
+    }
+
+    private class IntNode {
+        private IntNode prev;
+        private IntNode next;
+        private T item;
         public IntNode(T item, IntNode prev, IntNode next) {
             this.item = item;
             this.prev = prev;
@@ -62,8 +87,8 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
+        IntNode p = sentinel;
         for (int i = 0; i < size; i++) {
-            IntNode p = sentinel;
             p = p.next;
             if (i == index) {
                 return p.item;
@@ -96,10 +121,21 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LinkedListDeque<?> that = (LinkedListDeque<?>) o;
-        return size == that.size && Objects.equals(sentinel, that.sentinel);
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof LinkedListDeque linkedListDeque) {
+            if (this.size != linkedListDeque.size) {
+                return false;
+            }
+            for (int i = 0; i < size; i++) {
+                if (!linkedListDeque.get(i).equals(this.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

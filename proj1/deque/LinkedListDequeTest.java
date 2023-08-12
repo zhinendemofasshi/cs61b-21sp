@@ -36,6 +36,29 @@ public class LinkedListDequeTest {
     }
 
     @Test
+    /** ensure function equal is working*/
+    public void equalsTest() {
+        // different size
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
+        lld2.addFirst(1);
+        assertFalse(lld1.equals(lld2));
+        // same arrays
+        lld2.addFirst(2);
+        assertTrue(lld1.equals(lld2));
+        assertTrue(lld1.equals(lld1));
+        // same size but different contents
+        lld1.addFirst(3);
+        lld2.addFirst(5);
+        assertFalse(lld1.equals(lld2));
+        // different class
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        assertFalse(lld1.equals(arrayDeque));
+    }
+
+    @Test
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
 
@@ -125,5 +148,17 @@ public class LinkedListDequeTest {
 
     }
 
-
+    @Test
+    public void iterableTest() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        lld.addLast(1);
+        lld.addLast(2);
+        lld.addLast(3);
+        assertEquals((Integer) 1, lld.get(0));
+        assertEquals((Integer) 2, lld.get(1));
+        assertEquals((Integer) 3, lld.get(2));
+        for (int x : lld) {
+            System.out.println(x);
+        }
+    }
 }

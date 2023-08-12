@@ -2,8 +2,9 @@ package deque;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private int nextFirst = 4;
     private int nextLast = 5;
@@ -18,6 +19,7 @@ public class ArrayDeque<T> {
         System.arraycopy(items, 0, a, 0, size);
         items = a;
     }
+
 
     public void addFirst(T item) {
         if (size == items.length) {
@@ -91,12 +93,28 @@ public class ArrayDeque<T> {
         return size == 0;
     }
 
+    public Iterator<T> iterator() {
+        // ToDo lecture 11
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ArrayDeque<?> that = (ArrayDeque<?>) o;
-        return size == that.size && Arrays.equals(items, that.items);
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof ArrayDeque arrayDeque) {
+            if (this.size != arrayDeque.size) {
+                return false;
+            }
+            for (int i = 0; i < size; i++) {
+                if (!arrayDeque.get(i).equals(this.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
