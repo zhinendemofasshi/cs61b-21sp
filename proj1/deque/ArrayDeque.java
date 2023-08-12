@@ -118,23 +118,39 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o instanceof ArrayDeque arrayDeque) {
+//            if (this.size != arrayDeque.size) {
+//                return false;
+//            }
+//            for (int i = 0; i < size; i++) {
+//                if (!arrayDeque.get(i).equals(this.get(i))) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayDeque<?> lld = (ArrayDeque<?>) o;
+        if (lld.size() != size) {
+            return false;
         }
-        if (o instanceof ArrayDeque arrayDeque) {
-            if (this.size != arrayDeque.size) {
+        for (int i = 0; i < size; i++) {
+            if (lld.get(i) != get(i)) {
                 return false;
             }
-            for (int i = 0; i < size; i++) {
-                if (!arrayDeque.get(i).equals(this.get(i))) {
-                    return false;
-                }
-            }
-            return true;
         }
-        return false;
+        return true;
     }
 
     @Override

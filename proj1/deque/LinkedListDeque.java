@@ -119,23 +119,40 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         System.out.println();
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o instanceof LinkedListDeque linkedListDeque) {
+//            if (this.size != linkedListDeque.size) {
+//                return false;
+//            }
+//            for (int i = 0; i < size; i++) {
+//                if (!linkedListDeque.get(i).equals(this.get(i))) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
+
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedListDeque<?> lld = (LinkedListDeque<?>) o;
+        if (lld.size() != size) {
+            return false;
         }
-        if (o instanceof LinkedListDeque linkedListDeque) {
-            if (this.size != linkedListDeque.size) {
+        for (int i = 0; i < size; i++) {
+            if (lld.get(i) != get(i)) {
                 return false;
             }
-            for (int i = 0; i < size; i++) {
-                if (!linkedListDeque.get(i).equals(this.get(i))) {
-                    return false;
-                }
-            }
-            return true;
         }
-        return false;
+        return true;
     }
 
     @Override
