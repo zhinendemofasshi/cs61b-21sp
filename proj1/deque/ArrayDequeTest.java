@@ -74,6 +74,11 @@ public class ArrayDequeTest {
         assertEquals("b", L.get(3));
         assertEquals("d", L.get(4));
         assertEquals("e", L.get(5));
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 100; i++) {
+            ad1.addLast(i);
+            assertEquals((Integer) i, ad1.get(i));
+        }
     }
 
     @Test
