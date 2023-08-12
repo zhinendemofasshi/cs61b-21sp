@@ -79,6 +79,11 @@ public class ArrayDequeTest {
             ad1.addLast(i);
             assertEquals((Integer) i, ad1.get(i));
         }
+        ad1.addFirst(-1);
+        for (int i = 0; i < 100; i++) {
+            ad1.addFirst(i);
+            assertEquals((Integer) i, ad1.get(0));
+        }
     }
 
     @Test
