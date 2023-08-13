@@ -1,7 +1,5 @@
 package deque;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
@@ -27,7 +25,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public void addFirst(T item) {
         if (size == items.length) {
-            resize(size + 10);
+            resize(size * 2);
         }
         items[nextFirst] = item;
         size += 1;
@@ -36,7 +34,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public void addLast(T item) {
         if (size == items.length) {
-            resize(size + 10);
+            resize(size * 2);
         }
         items[nextLast] = item;
         size += 1;
@@ -52,8 +50,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         items[first] = null;
         nextFirst = first;
         size -= 1;
-        if (size < items.length - 10) {
-            resize(items.length - 5);
+        if (items.length >= 16 && size < items.length / 4) {
+            resize(items.length / 2);
         }
         return temp;
     }
@@ -67,8 +65,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         items[last] = null;
         nextLast = last;
         size -= 1;
-        if (size < items.length - 10) {
-            resize(items.length - 5);
+        if (items.length >= 16 && size < items.length / 4) {
+            resize(items.length / 2);
         }
         return temp;
     }
@@ -147,7 +145,22 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() == LinkedListDeque.class) {
+            LinkedListDeque<?> lld = (LinkedListDeque<?>) o;
+            if (lld.size() != size) {
+                return false;
+            }
+            for (int i = 0; i < size; i++) {
+                if (lld.get(i) != get(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        if (this.getClass() != o.getClass()) {
             return false;
         }
         ArrayDeque<?> lld = (ArrayDeque<?>) o;

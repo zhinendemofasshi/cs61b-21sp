@@ -166,6 +166,11 @@ public class ArrayDequeTest {
         assertFalse(lld1.equals(lld2));
         // same arrays
         lld2.addFirst(2);
+        // same LinkedList
+        LinkedListDeque<Integer> lld3 = new LinkedListDeque<>();
+        lld3.addFirst(1);
+        lld3.addFirst(2);
+        assertTrue(lld1.equals(lld3));
         assertTrue(lld1.equals(lld2));
         assertTrue(lld1.equals(lld1));
         // same size but different contents
@@ -175,5 +180,6 @@ public class ArrayDequeTest {
         // different class
         LinkedListDeque<Integer> arrayDeque = new LinkedListDeque<>();
         assertFalse(lld1.equals(arrayDeque));
+
     }
 }
