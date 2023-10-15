@@ -86,10 +86,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         // p points to the first item in this array.
         int p = (nextFirst + 1) % items.length;
-        for (int i = 0; i < index; i++) {
-            p += 1;
-            p = p % items.length;
-        }
+//        for (int i = 0; i < index; i++) {
+//            p += 1;
+//            p = p % items.length;
+//        }
+        p = (p + index) % items.length;
         return items[p];
     }
 
