@@ -1,7 +1,7 @@
 package gitlet;
 
 /** Driver class for Gitlet, a subset of the Git version-control system.
- *  @author TODO
+ *  @author IkeYang
  */
 public class Main {
 
@@ -10,6 +10,9 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO: what if args is empty?
+        if (args.length == 0) {
+            Utils.error("Please enter a command.", args);
+        }
         String firstArg = args[0];
         switch(firstArg) {
             case "init":
@@ -19,6 +22,8 @@ public class Main {
                 // TODO: handle the `add [filename]` command
                 break;
             // TODO: FILL THE REST IN
+            default:
+                Utils.error("No command with that name exists.", args);
         }
     }
 }
